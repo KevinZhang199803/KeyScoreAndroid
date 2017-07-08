@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.siokagami.keyscoreandroid.MainActivity">
+
+    <HorizontalScrollView
+        android:id="@+id/sv_score_container"
+        android:layout_width="match_parent"
+        android:layout_height="320dp"
+        android:layout_alignParentTop="true">
+
+        <LinearLayout
+            android:id="@+id/ll_node_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+        </LinearLayout>
+    </HorizontalScrollView>
+
+    <TextView
+        android:id="@+id/tv_bluetooth_text"
+        android:layout_width="300dp"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/sv_score_container" />
+
+    <Button
+        android:id="@+id/btn_start"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_below="@+id/sv_score_container"
+        android:layout_toRightOf="@+id/tv_bluetooth_text"
+        android:text="START" />
+
+    <Button
+        android:id="@+id/btn_pair"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_below="@+id/sv_score_container"
+        android:layout_toRightOf="@+id/btn_start"
+        android:text="connect" />
+    <TextView
+        android:layout_width="10dp"
+        android:layout_height="320dp"
+        android:layout_centerHorizontal="true"
+        android:background="#66ccff" />
+</RelativeLayout>
