@@ -11,6 +11,8 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -25,12 +27,13 @@ public class MainActivity extends BlunoLibrary implements View.OnClickListener {
     private HorizontalScrollView svScoreContainer;
     private LinearLayout llNodeContainer;
     private TextView tvBluetoothText;
-    private Button btnStart;
+    private CheckBox cbStart;
+
+
     private Button btnPair;
     private String bluetoothResponseText = "";
 
-    private String[] musicTrack = {"20", "20", "20", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "20", "20", "20", "20", "20"};
-    private String[] tagList = {"000001"};
+    private String[] musicTrack = {"20", "20", "20", "0", "1", "2", "3", "4", "5", "6", "1", "8", "9", "10", "11", "12", "20", "20", "20", "20", "20"};
 
     private final Handler mHandler = new Handler();
 
@@ -44,7 +47,7 @@ public class MainActivity extends BlunoLibrary implements View.OnClickListener {
                 if (svScoreContainer.getScrollY() == off) {
                     Thread.currentThread().interrupt();
                 } else {
-                    mHandler.postDelayed(this, 1);
+                    mHandler.postDelayed(this, 3);
                 }
             }
         }
@@ -65,29 +68,40 @@ public class MainActivity extends BlunoLibrary implements View.OnClickListener {
         svScoreContainer = (HorizontalScrollView) findViewById(R.id.sv_score_container);
         llNodeContainer = (LinearLayout) findViewById(R.id.ll_node_container);
         tvBluetoothText = (TextView) findViewById(R.id.tv_bluetooth_text);
-        btnStart = (Button) findViewById(R.id.btn_start);
+        cbStart = (CheckBox) findViewById(R.id.cb_start);
         btnPair = (Button) findViewById(R.id.btn_pair);
-        btnStart.setOnClickListener(this);
         btnPair.setOnClickListener(this);
+
+        cbStart.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    mHandler.postDelayed(ScrollRunnable, 100);
+                } else {
+
+                }
+            }
+        });
     }
 
     @Override
     public void onConectionStateChange(connectionStateEnum theconnectionStateEnum) {
         switch (theconnectionStateEnum) {                                            //Four connection state
             case isConnected:
-                btnPair.setText("Connected");
+                btnPair.setSelected(true);
+//                btnPair.setText("Connected");
                 break;
             case isConnecting:
-                btnPair.setText("Connecting");
+//                btnPair.setText("Connecting");
                 break;
             case isToScan:
-                btnPair.setText("Scan");
+//                btnPair.setText("Scan");
                 break;
             case isScanning:
-                btnPair.setText("Scanning");
+//                btnPair.setText("Scanning");
                 break;
             case isDisconnecting:
-                btnPair.setText("isDisconnecting");
+//                btnPair.setText("isDisconnecting");
                 break;
             default:
                 break;
@@ -103,9 +117,6 @@ public class MainActivity extends BlunoLibrary implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btn_start:
-                mHandler.postDelayed(ScrollRunnable, 100);
-                break;
             case R.id.btn_pair:
                 buttonScanOnClickProcess();                                        //Alert Dialog for selecting the BLE device
                 break;
@@ -147,7 +158,13 @@ public class MainActivity extends BlunoLibrary implements View.OnClickListener {
             imageView.setMinimumWidth(DisplayUtil.dp2px(MainActivity.this, 80));
             imageView.setMinimumHeight(DisplayUtil.dp2px(MainActivity.this, 320));
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-            imageView.setTag(musicTrack[i]);
+            if (musicTrack[i].equals("10")) {
+                imageView.setTag("ha");
+
+            } else {
+                imageView.setTag("hahaha");
+
+            }
             imageView.setEnabled(false);
             imageView.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
                 @Override

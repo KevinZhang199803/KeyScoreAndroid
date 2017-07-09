@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/bg_main"
     tools:context="com.siokagami.keyscoreandroid.MainActivity">
+
     <HorizontalScrollView
         android:id="@+id/sv_score_container"
         android:layout_width="match_parent"
@@ -16,8 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:orientation="horizontal">
-        </LinearLayout>
+            android:orientation="horizontal"></LinearLayout>
     </HorizontalScrollView>
 
     <TextView
@@ -26,21 +26,23 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/sv_score_container" />
 
-    <Button
-        android:id="@+id/btn_start"
+    <CheckBox
+        android:id="@+id/cb_start"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_below="@+id/sv_score_container"
-        android:layout_toRightOf="@+id/tv_bluetooth_text"
-        android:text="START" />
+        android:layout_toLeftOf="@+id/btn_pair"
+        android:background="@drawable/icon_contorl_selector"
+        android:button="@null" />
 
     <Button
         android:id="@+id/btn_pair"
-        android:layout_width="100dp"
+        android:layout_width="80dp"
         android:layout_height="100dp"
+        android:layout_alignParentRight="true"
         android:layout_below="@+id/sv_score_container"
-        android:layout_toRightOf="@+id/btn_start"
-        android:text="connect" />
+        android:background="@drawable/icon_blue_tooth_selector" />
+
     <TextView
         android:layout_width="10dp"
         android:layout_height="320dp"
