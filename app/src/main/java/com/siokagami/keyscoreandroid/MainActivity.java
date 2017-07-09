@@ -16,8 +16,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.siokagami.keyscoreandroid.bluetooth.BlunoLibrary;
 import com.siokagami.keyscoreandroid.utils.DisplayUtil;
+import com.siokagami.keyscoreandroid.utils.FrescoUtil;
 
 public class MainActivity extends BlunoLibrary implements View.OnClickListener {
     private HorizontalScrollView svScoreContainer;
@@ -27,8 +29,8 @@ public class MainActivity extends BlunoLibrary implements View.OnClickListener {
     private Button btnPair;
     private String bluetoothResponseText = "";
 
-    private String[] musicTrack = {"20", "20", "20", "0", "1", "1", "1", "1", "1", "1", "1", "1", "1", "3", "3", "3", "3", "0", "0", "0", "0", "0"};
-
+    private String[] musicTrack = {"20", "20", "20", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "20", "20", "20", "20", "20"};
+    private String[] tagList = {"000001"};
 
     private final Handler mHandler = new Handler();
 
@@ -71,7 +73,25 @@ public class MainActivity extends BlunoLibrary implements View.OnClickListener {
 
     @Override
     public void onConectionStateChange(connectionStateEnum theconnectionStateEnum) {
-
+        switch (theconnectionStateEnum) {                                            //Four connection state
+            case isConnected:
+                btnPair.setText("Connected");
+                break;
+            case isConnecting:
+                btnPair.setText("Connecting");
+                break;
+            case isToScan:
+                btnPair.setText("Scan");
+                break;
+            case isScanning:
+                btnPair.setText("Scanning");
+                break;
+            case isDisconnecting:
+                btnPair.setText("isDisconnecting");
+                break;
+            default:
+                break;
+        }
     }
 
     @Override
@@ -123,14 +143,6 @@ public class MainActivity extends BlunoLibrary implements View.OnClickListener {
 
     private void initTrack() {
         for (int i = 0; i < musicTrack.length; i++) {
-//            final TextView nodeText = new TextView(MainActivity.this);
-//            nodeText.setWidth(DisplayUtil.dp2px(MainActivity.this, 80));
-//            nodeText.setHeight(DisplayUtil.dp2px(MainActivity.this, 320));
-//            nodeText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 30);
-//            nodeText.setGravity(Gravity.CENTER);
-//            nodeText.setText(musicTrack[i]);
-
-
             final ImageView imageView = new ImageView(MainActivity.this);
             imageView.setMinimumWidth(DisplayUtil.dp2px(MainActivity.this, 80));
             imageView.setMinimumHeight(DisplayUtil.dp2px(MainActivity.this, 320));
@@ -197,6 +209,7 @@ public class MainActivity extends BlunoLibrary implements View.OnClickListener {
                 return DisplayUtil.getDrawable(MainActivity.this, R.drawable.icon_track_16_selector);
             default:
                 return null;
+
         }
     }
 }

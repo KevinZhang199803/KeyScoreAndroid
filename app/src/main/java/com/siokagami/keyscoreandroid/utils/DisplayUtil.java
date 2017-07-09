@@ -21,7 +21,6 @@ import com.siokagami.keyscoreandroid.base.ApplicationHolder;
 
 import java.lang.reflect.Method;
 
-@Deprecated
 public class DisplayUtil {
 
 
@@ -193,63 +192,9 @@ public class DisplayUtil {
         return getScreenHeight() - getStatusBarHeight();
     }
 
-//    public static int getTextMeasureHeight(Context context, String text, float textSize, boolean singleLine) {
-//        TextView textView = new TextView(context);
-//        textView.setText(text);
-//        textView.setSingleLine(singleLine);
-//        textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
-//        int widthMeasureSpec = View.MeasureSpec.makeMeasureSpec(getScreenWidth(), View.MeasureSpec.AT_MOST);
-//        int heightMeasureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
-//        textView.measure(widthMeasureSpec, heightMeasureSpec);
-//        int result = textView.getMeasuredHeight();
-//        textView = null;
-//        return result;
-//    }
-
-
-//    public static int getTextMeasureWidth(Context context, String text, float textSize, int padding) {
-//        TextView textView = new TextView(context);
-//        textView.setText(text);
-//        textView.setPadding(padding, padding, padding, padding);
-//        textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
-//        int widthMeasureSpec = View.MeasureSpec.makeMeasureSpec(getScreenWidth(), View.MeasureSpec.AT_MOST);
-//        int heightMeasureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
-//        textView.measure(widthMeasureSpec, heightMeasureSpec);
-//        int result = textView.getMeasuredWidth();
-//        textView = null;
-//        return result;
-//    }
-
     public static int getDimensionPixelSize(int resId) {
         return ApplicationHolder.instance.getResources().getDimensionPixelSize(resId);
     }
-    /**
-     * 是不是魅族的sb机器
-     *
-     * @return
-     */
-    public static boolean hasSmartBar() {
-        if (hasLodadedSmartbar) {
-            return hasSmartbar;
-        }
-        try {
-            // 新型号可用反射调用Build.hasSmartBar()
-            Method method = Class.forName("android.os.Build").getMethod("hasSmartBar");
-            hasSmartbar = ((Boolean) method.invoke(null)).booleanValue();
-        } catch (Exception e) {
-
-        }
-        // 反射不到Build.hasSmartBar(),则用Build.DEVICE判断
-        if (Build.DEVICE.equals("mx2")) {
-            hasSmartbar = true;
-        } else if (Build.DEVICE.equals("mx") ||
-                Build.DEVICE.equals("m9")) {
-            hasSmartbar = false;
-        }
-        hasLodadedSmartbar = true;
-        return hasSmartbar;
-    }
-
     private static int contentViewHeight;
 
     public static int getContentViewHeight(Activity activity) {
@@ -257,17 +202,6 @@ public class DisplayUtil {
             contentViewHeight = activity.getWindow().findViewById(android.R.id.content).getMeasuredHeight();
         }
         return contentViewHeight;
-    }
-
-    public static void scaleRect(RectF rect, float factor) {
-        float diffHorizontal = (rect.right - rect.left) * (factor - 1f);
-        float diffVertical = (rect.bottom - rect.top) * (factor - 1f);
-
-        rect.top -= diffVertical / 2f;
-        rect.bottom += diffVertical / 2f;
-
-        rect.left -= diffHorizontal / 2f;
-        rect.right += diffHorizontal / 2f;
     }
 
 }
